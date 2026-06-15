@@ -43,7 +43,7 @@ function handleCalculate(parsedBody) {
         return {
             statusCode: 400,
             response: {
-                error: "Missing fields"
+                error: "Missing inputs"
             }
         };
     }
