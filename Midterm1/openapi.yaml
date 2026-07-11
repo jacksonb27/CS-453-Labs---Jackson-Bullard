@@ -1,0 +1,101 @@
+openapi: 3.0.3
+
+info:
+  title: Course Task Tracker API
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+
+paths:
+  /health:
+    get:
+      summary: Returns health of server
+      responses:
+        "200":
+          description: Status is Healthy!
+
+  /api/tasks:
+    get:
+      summary: Returns list of all tasks
+      responses:
+        "200":
+          description: This is all of the known tasks.
+
+    post:
+      summary: Creates a new task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+               type: object
+               properties:
+                title:
+                  type: string
+                course:
+                  type: string
+                completed:
+                  type: boolean
+      responses:
+        "201":
+          description: Successfully posted.
+        "400":
+          description: Error, missing field components.
+
+  /api/tasks/{id}:
+    get:
+      summary: Returns specific task
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully returned task.
+        "404":
+          description: Error, task not found.
+
+    put:
+      summary: Replaces an existing task
+      responses:
+        "200":
+          description: Successfully added task.
+        "400":
+          description: Error, missing field components.
+        "404":
+          description: Error, task not found.
+
+    patch:
+      summary: Partially edits a task
+      responses:
+        "200":
+          description: Successfully editted task.
+        "400":
+          description: Error, missing field components.
+        "404":
+          description: Error, task not found.
+
+    delete:
+      summary: Deletes a task
+      responses:
+        "204":
+          description: Successfully deleted task.
+        "404":
+          description: Error, task not found.
+
+components:
+  schemas:
+    Task:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        course:
+          type: string
+        completed:
+          type: boolean
